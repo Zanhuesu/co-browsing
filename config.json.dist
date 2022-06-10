@@ -1,5 +1,5 @@
 {
   "url_base": "http://dominio:7000",
-  "puerto":   7000,
+  "port":   7000,
   "portada":  "https://github.com/joker-x"
 }

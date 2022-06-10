@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Cobrowsing(Control)</title>
+  <meta charset="utf-8">
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function () {
+      var socket = io.connect('<%url_base%>');
+      socket.on('jump', function (url) {
+        $('#direction').val(url);
+        $('#contents').attr('src', url);
+      });
+      $('#contents').load(function () {
+        var src_iframe = $('#contents').prop('src'),
+          url_input = $('#direction').val();
+        // The src property is not refreshed
+        if (src_iframe && (src_iframe != '') && (src_iframe != url_input)) {
+          $('#direction').val(src_iframe);
+          socket.emit('jump', src_iframe);
+        }
+      });
+      $('#direction').keypress(function (e) {
+        //When you press ENTER
+        if (e.which == 13) {
+          var dir = $('#direction').val();
+          if (dir.indexOf('//') < 0) $('#direction').val('http://' + dir);
+          socket.emit('jump', $('#direction').val());
+        }
+      });
+      $('#direction').focus(function () {
+        $(this).fadeTo('slow', 1);
+      });
+      $('#direction').blur(function () {
+        $(this).fadeTo('slow', 0.3);
+      });
+      $('#direction').focus();
+    });
+  </script>
+  <style>
+    body,
+    #contents {
+      margin: 0;
+      padding: 0;
+      border: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+    }
+
+    #contents,
+    #charging,
+    #barra {
+      position: absolute;
+      top: 0;
+      left: 0;
+      overflow: auto;
+    }
+
+    #charging {
+      z-index: 100;
+      display: none;
+    }
+
+    #barra {
+      width: 100%;
+      padding: 2%;
+    }
+
+    #direction {
+      width: 95%;
+      font-size: 1.5em;
+      color: #009;
+    }
+  </style>
+</head>
+
+<body>
+  <iframe id="contents" name="contents"></iframe>
+  <div id="barra">
+    <input id="direction" type="text" value="http://">
+  </div>
+</body>
+
+</html>

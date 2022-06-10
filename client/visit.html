@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Cobrowsing(Visitor)</title>
+  <meta charset="utf-8">
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function () {
+      var socket = io.connect('<%url_base%>');
+      socket.on('jump', function (url) {
+        $('#charging').html('Charging <a href="' + url + '">' + url + '</a> ...').show();
+        $('#contents').attr('src', url);
+      });
+      $('#contents').load(function () {
+        $('#charging').fadeOut();
+      });
+    });
+  </script>
+  <style>
+    body,
+    #contents {
+      margin: 0;
+      padding: 0;
+      border: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+      overflow: hidden;
+    }
+
+    #contents,
+    #charging {
+      position: absolute;
+      top: 0;
+      left: 0;
+      overflow: auto;
+    }
+
+    #charging {
+      z-index: 100;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="charging"></div>
+  <iframe id="contents"></iframe>
+</body>
+
+</html>
