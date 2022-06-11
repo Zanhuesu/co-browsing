@@ -4,10 +4,11 @@
   "description": "Navega por Internet en grupo con browsewithme",
   "main": "servidor/inicio.js",
   "dependencies": {
+    "nodemon": "^2.0.16",
     "socket.io": "~0.9.13"
   },
-  "devDependencies": {},
   "scripts": {
+    "start": "nodemon server/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

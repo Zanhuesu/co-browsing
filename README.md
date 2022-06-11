@@ -3,7 +3,7 @@
 Navega por Internet en grupo con *browsewithme*.
 
 Se trata de la implementación más simple del cobrowsing (conavegación):
-todos los que estén Connecteds a la web reciben cualquier cambio en la barra
+todos los que estén Connecteds a la web reciben cualquier cambio en la bar
 de directiones, mostrando la nueva web en un iframe.
 
 *browsewithme* está escrita en nodejs y socket.io y tiene licencia AGPL.
