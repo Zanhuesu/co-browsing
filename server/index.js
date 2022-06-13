@@ -18,6 +18,7 @@ var control_html = fs.readFileSync(__dirname+'/../client/control.html', 'UTF-8')
 var visit_html = fs.readFileSync(__dirname+'/../client/visit.html', 'UTF-8');
 
 //  replace url_base
+// console.log("base url", /<%url_base%>/g);
 control_html = control_html.replace(/<%url_base%>/g, config.url_base);
 visit_html = visit_html.replace(/<%url_base%>/g, config.url_base);
 
@@ -37,7 +38,7 @@ webserver.listen(config.port);
 
 // Socket.io
 /////////////////
-var last_url = config.portada;
+var last_url = config.first;
 io = io.listen(webserver);
 
 io.configure('production', function(){
